@@ -58,19 +58,19 @@ public class PlayerController : MonoBehaviour {
 		// Causes player force to be negated on key up 		
 
 		if (Input.GetKeyUp (jumpKey)) {    
-			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * -349);
+			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * 300);
 		}
 		if (Input.GetKeyUp (forwardsKey)) {
-			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.forward * -19);
+			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.forward * 10);
 		}
 		if (Input.GetKeyUp (leftKey)) {
-			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.left * -19);
+			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.left * 10);
 		}
 		if (Input.GetKeyUp (backwardsKey)) {
-			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.back * -19);
+			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.back * 10);
 		}
 		if (Input.GetKeyUp (rightKey)) {
-			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.right * -19);
+			gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.right * 10);
 		}
 //---------------------------------------------------------------------------------------------
 		if (speed > maxSpeed) {
