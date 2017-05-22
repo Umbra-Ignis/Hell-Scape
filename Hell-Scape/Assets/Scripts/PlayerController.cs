@@ -8,20 +8,21 @@ public class PlayerController : MonoBehaviour {
 	public float jumpHeight = 8f;
 	public float gravity = 20f;
 	public float runningSpeed = 2f;
-	public float maxSpeed = 
+	public float maxSpeed = 5f;
 
 	private bool grounded = true;
-	private bool isActive;
+	[HideInInspector]
+	public bool isActive;
 
 	// Use this for initialization
 	void Start () {
 
 		isActive = true;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
 		if (Input.GetKey (KeyCode.W)) {
 			transform.position = transform.position + new Vector3 (0, 0, 0.1f);
 		}
@@ -37,11 +38,12 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space)) {
 			gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * 20);
 		}
-	// Toggle torch 
+		// Toggle torch 
 		if (Input.GetKeyDown (KeyCode.E))
-		    if (isActive == false) {
-			    torch.enabled = true;
-			    isActive = true;
+		if (isActive == false)
+		 {
+			torch.enabled = true;
+			isActive = true;
 		} else if (isActive == true) {
 			torch.enabled = false;
 			isActive = false;
@@ -50,14 +52,14 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-		private void JumpingMechanic () {
+	private void JumpingMechanic () {
 
 		if (!grounded && (GetComponent<Rigidbody> ().velocity.y == 0)) {
 			grounded = true;
-			}
-			if (Input.GetKeyDown (KeyCode.Space) && grounded ==true) {
-				GetComponent<Rigidbody> ().velocity = new Vector3 (runningSpeed, Mathf.Sqrt (2 * jumpHeight * gravity), 0);
-			    grounded = false;
+		}
+		if (Input.GetKeyDown (KeyCode.Space) && grounded ==true) {
+			GetComponent<Rigidbody> ().velocity = new Vector3 (runningSpeed, Mathf.Sqrt (2 * jumpHeight * gravity), 0);
+			grounded = false;
 		}
 	}
 }
