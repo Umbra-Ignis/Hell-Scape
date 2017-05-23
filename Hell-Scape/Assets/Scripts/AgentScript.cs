@@ -19,10 +19,7 @@ public class AgentScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-		if (torch == true) { 
+	void Update () { 
 			agent.SetDestination (target.position);
-		} 
 	}
 }
