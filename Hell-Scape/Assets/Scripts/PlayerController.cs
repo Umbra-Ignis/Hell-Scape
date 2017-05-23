@@ -71,9 +71,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			transform.Rotate (new Vector3 (0, 2f, 0));
 		}
-		if (Input.GetKey (KeyCode.Space)) {
-			gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * 20);
-		}
+		//if (Input.GetKey (KeyCode.Space)) {
+		//	gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * 20);
+		//}
 //-----------------------------------------------------------------------------------
 		// Toggle torch 
 		if (Input.GetKeyDown (KeyCode.E))
