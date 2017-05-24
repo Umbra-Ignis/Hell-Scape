@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public XboxController controller;
 
 	public Light torch;
-	public float jumpHeight = 4f;
+	public float jumpHeight = 8f;
 	public float gravity = 20f;
 	public float runningSpeed = 2f;
 	public float maxSpeed = 5f;
