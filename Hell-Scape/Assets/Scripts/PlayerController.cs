@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour {
 	public XboxController controller;
 
 	public Light torch;
-	public float jumpHeight = 8f;
+	public float jumpHeight;
 	public float gravity = 20f;
-	public float runningSpeed = 2f;
-	public float maxSpeed = 5f;
-	public float movementSpeed = 1f;
+	public float runningSpeed;
+	public float maxSpeed;
+	public float movementSpeed;
 
 	private bool grounded = true;
 	[HideInInspector]
@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
 
 		rigidbody = GetComponent<Rigidbody> ();
 
