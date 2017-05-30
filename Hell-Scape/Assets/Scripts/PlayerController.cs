@@ -20,10 +20,16 @@ public class PlayerController : MonoBehaviour {
 	[HideInInspector]
 	public bool isActive;
 
+	public GUIText gameOverText;
+
+	private bool gameOver;
+
 	// Use this for initialization
 	void Start () {
 
+		gameOver = false;
 
+		gameOverText.text = "";
 
 		rigidbody = GetComponent<Rigidbody> ();
 
@@ -57,6 +63,10 @@ public class PlayerController : MonoBehaviour {
 	//}
 	// Update is called once per frame
 	void Update (){
+
+		if (Input.GetKeyDown (KeyCode.R)) {
+			Application.LoadLevel (Application.loadedLevelName);
+		}
 
 //------------------------------------------------------------------------------------
 		if (Input.GetKey (KeyCode.W)) {
@@ -102,5 +112,16 @@ public class PlayerController : MonoBehaviour {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (0, Mathf.Sqrt (2 * jumpHeight * gravity), 0);
 			grounded = false;
 		}
+	}
+	void OnCollisionEnter (Collision other) {
+
+		if (other.gameObject.tag == "Enemy") {
+			Destroy (gameObject);
+		}
+	}
+	public void GameOver(){
+
+		gameOverText.text = "GAME OVER";
+		gameOver = true;
 	}
 }
