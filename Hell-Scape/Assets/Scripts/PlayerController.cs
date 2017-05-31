@@ -117,9 +117,4 @@ public class PlayerController : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-	public void GameOver(){
-
-		gameOverText.text = "GAME OVER";
-		gameOver = true;
-	}
 }
