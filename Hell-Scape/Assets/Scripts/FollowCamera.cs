@@ -12,7 +12,7 @@ public class FollowCamera : MonoBehaviour {
 	public bool followBehind = true;
 	public float rotationDamping = 10.0f;
 
-	void FixedUpdate() {
+	void Update() {
 		Vector3 wantedPosition;
 		if (followBehind)
 			wantedPosition = target.TransformPoint (0, height, -distance);
