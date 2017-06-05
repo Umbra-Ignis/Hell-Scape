@@ -20,6 +20,6 @@ public class AgentScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
-w			agent.SetDestination (target.position);
+		agent.SetDestination (target.position);
 	}
 }

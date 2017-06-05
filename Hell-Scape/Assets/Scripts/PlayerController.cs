@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XboxCtrlrInput;
 
 public class PlayerController : MonoBehaviour {
 
 	// controller support
 	private Rigidbody rigidbody;
-	public XboxController controller;
 
 	public Light torch;
 	public float jumpHeight;
@@ -24,6 +22,9 @@ public class PlayerController : MonoBehaviour {
 
 	private bool gameOver;
 
+	private GameObject dead;
+	private GameObject victory;
+
 	// Use this for initialization
 	void Start () {
 
@@ -34,39 +35,19 @@ public class PlayerController : MonoBehaviour {
 		rigidbody = GetComponent<Rigidbody> ();
 
 		isActive = true;
+
+		dead = GameObject.FindGameObjectWithTag ("Dead");
 	}
 	void FixedUpdate () {
 		JumpingMechanic ();
 
-		//MovePlayer ();
 	}
-	//private void MovePlayer (){
-	//	float axisX = XCI.GetAxis (XboxAxis.LeftStickX, controller);
-	//	float axisZ = XCI.GetAxis (XboxAxis.LeftStickY, controller);
-	//
-	//	Vector3 movement = new Vector3 (axisX, 0, axisZ);
-	//
-	//	rigidbody.AddForce (movement * movementSpeed);
-	//
-	//	if (rigidbody.velocity.magnitude > maxSpeed) {
-	//		rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
-	//	}
-	//}
-	//	private void RotatePlayer ()
-	//	{
-	//
-	//		//Allows for 360 Degrees rotation on the Right Stick on X & Y Axis'
-	//		float rotateAxisX = XCI.GetAxis (XboxAxis.RightStickX, controller);
-	//		float rotateAxisZ = XCI.GetAxis (XboxAxis.RightStickY, controller);
-	//
-	//		Vector3 directionVector = new Vector3 (rotateAxisX, 0, rotateAxisZ);
-	//}
 	// Update is called once per frame
 	void Update (){
 
 
 
-//------------------------------------------------------------------------------------
+//------------------------------------Player Controlls------------------------------------------------
 		if (Input.GetKey (KeyCode.W)) {
 			//transform.position = transform.position + new Vector3 (0, 0, 0.1f);
 			transform.position = transform.position + (transform.forward * 0.1f);
@@ -85,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 		//	gameObject.GetComponent<Rigidbody> ().AddForce (transform.up * 20);
 		//}
 //-----------------------------------------------------------------------------------
-		// Toggle torch 
+// 	Toggle torch 
 		if (Input.GetKeyDown (KeyCode.E))
 		if (isActive == false)
 		 {
@@ -95,15 +76,15 @@ public class PlayerController : MonoBehaviour {
 			torch.enabled = false;
 			isActive = false;
 		}
-		//Sprint 
+//		Sprint 
 		if (Input.GetKey (KeyCode.LeftShift)) {
 			transform.position = transform.position + (transform.forward * 0.05f);
 		} 
 	}
 
 	private void JumpingMechanic () {
-
-		if (!grounded && (GetComponent<Rigidbody> ().velocity.y == 0)) {
+//		Allows the player to jump
+		if (!grounded && (GetComponent<Rigidbody> ().velocity.y <= 1)) {
 			grounded = true;
 		}
 		if (Input.GetKeyDown (KeyCode.Space) && grounded ==true) {
@@ -112,9 +93,13 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	void OnCollisionEnter (Collision other) {
-
+//		Player Death Mechanic 
 		if (other.gameObject.tag == "Enemy") {
 			Destroy (gameObject);
+			dead.transform.GetChild (0).gameObject.SetActive (true);
+		}
+		if (other.gameObject.tag == "Victory") {
+			victory.transform.GetChild (0).gameObject.SetActive (true);
 		}
 	}
 }
