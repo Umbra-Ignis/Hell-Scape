@@ -1,32 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-	public GUIText gameOverText;
+	public int keysCollected;
 
-	private bool gameOver;
+	public GameObject keyText;
 
 	// Use this for initialization
 	void Start () {
 
-		gameOver = false;
-
-		gameOverText.text = "";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-			if (Input.GetKeyDown (KeyCode.R)) {
-				Application.LoadLevel (Application.loadedLevelName);
-			}
-
+		
 	}
-	public void GameOver(){
-
-		gameOverText.text = "GAME OVER";
-		gameOver = true;
-	}
+//	void OnTriggerOther (Collider other) {
+//		if (other.tag == "Key") {
+//			keyText = "Keys " + addKey;
+//		}
+//	}
 }

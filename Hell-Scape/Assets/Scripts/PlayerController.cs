@@ -14,29 +14,40 @@ public class PlayerController : MonoBehaviour {
 	public float maxSpeed;
 	public float movementSpeed;
 
+	public int keysCollected;
+
+	public GUIText keyText;
+
 	private bool grounded = true;
 	[HideInInspector]
 	public bool isActive;
 
-	public GUIText gameOverText;
+//	public GUIText gameOverText;
+//	public GUIText victoryText;
 
-	private bool gameOver;
+//	private bool gameOver;
+	private bool win;
 
 	private GameObject dead;
-	private GameObject victory;
+//	private GameObject victory;
 
 	// Use this for initialization
 	void Start () {
 
-		gameOver = false;
+		keyText.text = "Keys: 0";
 
-		gameOverText.text = "";
+		win = false;
+//		gameOver = false;
+
+//		gameOverText.text = "";
+//		victoryText.text = "";
 
 		rigidbody = GetComponent<Rigidbody> ();
 
 		isActive = true;
 
 		dead = GameObject.FindGameObjectWithTag ("Dead");
+//		win = GameObject.FindGameObjectWithTag ("Victory");
 	}
 	void FixedUpdate () {
 		JumpingMechanic ();
@@ -44,10 +55,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update (){
-
-
-
-//------------------------------------Player Controlls------------------------------------------------
+//------------------------------------Player Movement------------------------------------------------
 		if (Input.GetKey (KeyCode.W)) {
 			//transform.position = transform.position + new Vector3 (0, 0, 0.1f);
 			transform.position = transform.position + (transform.forward * 0.1f);
@@ -67,39 +75,50 @@ public class PlayerController : MonoBehaviour {
 		//}
 //-----------------------------------------------------------------------------------
 // 	Toggle torch 
-		if (Input.GetKeyDown (KeyCode.E))
-		if (isActive == false)
-		 {
-			torch.enabled = true;
-			isActive = true;
-		} else if (isActive == true) {
-			torch.enabled = false;
-			isActive = false;
-		}
+//		if (Input.GetKeyDown (KeyCode.E))
+//		if (isActive == false)
+//		 {
+//			torch.enabled = true;
+//			isActive = true;
+//		} else if (isActive == true) {
+//			torch.enabled = false;
+//			isActive = false;
+//		}
 //		Sprint 
 		if (Input.GetKey (KeyCode.LeftShift)) {
 			transform.position = transform.position + (transform.forward * 0.05f);
 		} 
+
+		keyText.text = "Keys: " + keysCollected;
 	}
 
 	private void JumpingMechanic () {
 //		Allows the player to jump
-		if (!grounded && (GetComponent<Rigidbody> ().velocity.y <= 1)) {
-			grounded = true;
-		}
-		if (Input.GetKeyDown (KeyCode.Space) && grounded ==true) {
+		if (Input.GetKeyDown (KeyCode.Space) && grounded == true) {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (0, Mathf.Sqrt (2 * jumpHeight * gravity), 0);
 			grounded = false;
 		}
 	}
 	void OnCollisionEnter (Collision other) {
-//		Player Death Mechanic 
+//			Player Death Mechanic 
 		if (other.gameObject.tag == "Enemy") {
 			Destroy (gameObject);
 			dead.transform.GetChild (0).gameObject.SetActive (true);
 		}
-		if (other.gameObject.tag == "Victory") {
-			victory.transform.GetChild (0).gameObject.SetActive (true);
+		if (other.gameObject.tag == "Floor") {
+			grounded = true;
 		}
+	}
+	void OnTriggerEnter (Collider other) {
+
+		if (other.tag == "Key") {
+
+			AddKey ();
+			Destroy (other.gameObject);
+		}
+	}
+	public void AddKey (){
+
+		keysCollected++;
 	}
 }
