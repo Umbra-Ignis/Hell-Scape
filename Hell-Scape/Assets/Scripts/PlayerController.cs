@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-	// controller support
 	private Rigidbody rigidbody;
 
 	public Light torch;
@@ -16,9 +16,14 @@ public class PlayerController : MonoBehaviour {
 
 	public int keysCollected;
 
+	private int timer;
+
 	public GUIText keyText;
 
+	public Text exitOpenText;
+
 	private bool grounded = true;
+	private bool exitable = true;
 	[HideInInspector]
 	public bool isActive;
 
@@ -33,7 +38,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		exitOpenText.text = "";
+		exitable = false;
 
+//		this section is how the keys text is displayed
 		keyText.text = "Keys: 0";
 
 		win = false;
@@ -89,11 +97,16 @@ public class PlayerController : MonoBehaviour {
 			transform.position = transform.position + (transform.forward * 0.05f);
 		} 
 
+		if (keysCollected == 3) {
+
+			exitable = true;
+			ExitOpen ();
+		}
 		keyText.text = "Keys: " + keysCollected;
 	}
-
-	private void JumpingMechanic () {
 //		Allows the player to jump
+	private void JumpingMechanic () {
+
 		if (Input.GetKeyDown (KeyCode.Space) && grounded == true) {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (0, Mathf.Sqrt (2 * jumpHeight * gravity), 0);
 			grounded = false;
@@ -109,6 +122,7 @@ public class PlayerController : MonoBehaviour {
 			grounded = true;
 		}
 	}
+// player can pick up keys and unlock doors with said key
 	void OnTriggerEnter (Collider other) {
 
 		if (other.tag == "Key") {
@@ -120,5 +134,11 @@ public class PlayerController : MonoBehaviour {
 	public void AddKey (){
 
 		keysCollected++;
+	}
+	void ExitOpen () {
+		if (exitable == true) {
+			exitOpenText.text = ("EXIT OPEN");
+			Destroy (exitOpenText, 3);
+		}
 	}
 }

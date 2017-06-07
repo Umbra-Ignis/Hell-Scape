@@ -8,6 +8,7 @@ public class DoorTrigger : MonoBehaviour {
 
 	private PlayerController playerController;
 
+//	llows doors to be opened only after picking up  key 
 	void Start () {
 
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player");

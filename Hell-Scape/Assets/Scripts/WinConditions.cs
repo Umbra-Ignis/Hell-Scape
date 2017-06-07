@@ -10,13 +10,14 @@ public class WinConditions : MonoBehaviour {
 	void Start () {
 		victory.SetActive (false);
 	}
-	
-	// Update is called once per frame
+//	this resets the level 
 	void Update () {
+
 		if (Input.GetKeyDown (KeyCode.R)) {
 			Application.LoadLevel (Application.loadedLevelName);
 		}
 	}
+// this allows the canvas to trigger the victory screen when player enters trigger
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.tag == "Player") {
 			victory.SetActive (true);

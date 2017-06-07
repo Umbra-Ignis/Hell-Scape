@@ -18,8 +18,9 @@ public class AgentScript : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent> ();
 	}
 	
-	// Update is called once per frame
+//	allows the enemy to track the player relentlessly
 	void Update () { 
+
 		agent.SetDestination (target.position);
 	}
 }
