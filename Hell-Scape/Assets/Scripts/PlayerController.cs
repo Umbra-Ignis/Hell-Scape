@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviour {
 
 	private int timer;
 
-	public GUIText keyText;
-
+	public Text keyText;
 	public Text exitOpenText;
+
+	public Text gameOverText;
+	public Text restartText;
 
 	private bool grounded = true;
 	private bool exitable = true;
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gameOverText.text = "";
+		restartText.text = "";
 		exitOpenText.text = "";
 		exitable = false;
 
@@ -115,6 +119,8 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter (Collision other) {
 //			Player Death Mechanic 
 		if (other.gameObject.tag == "Enemy") {
+			gameOverText.text = "Game Over";
+			restartText.text = "Press 'R' to Restart";
 			Destroy (gameObject);
 			dead.transform.GetChild (0).gameObject.SetActive (true);
 		}

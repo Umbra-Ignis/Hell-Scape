@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinConditions : MonoBehaviour {
+	
+	public Text victoryText;
+	public Text restartText;
 
-	public GameObject victory;
-
+	public bool victory;
 	// Use this for initialization
 	void Start () {
-		victory.SetActive (false);
+		victory = false;
+		victoryText.text = "";
+		restartText.text = "";
 	}
 //	this resets the level 
 	void Update () {
@@ -16,11 +21,15 @@ public class WinConditions : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R)) {
 			Application.LoadLevel (Application.loadedLevelName);
 		}
+		if (victory) {
+			victoryText.text = "LEVEL COMPLETE!";
+			restartText.text = "Press 'R' to Restart";
+		}
 	}
 // this allows the canvas to trigger the victory screen when player enters trigger
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.tag == "Player") {
-			victory.SetActive (true);
+			victory = true;
 			Destroy (other.gameObject);
 		}
 	}
